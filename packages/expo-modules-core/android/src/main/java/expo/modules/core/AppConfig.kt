@@ -38,7 +38,11 @@ object AppConfig {
       val config = getStringImpl(context)
 
       if (!config.isNullOrEmpty()) {
-        configJSON = JSONObject(config)
+        try {
+          configJSON = JSONObject(config)
+        } catch (e: Exception) {
+          Log.e(TAG, "Error parsing embedded app config", e)
+        }
       }
     }
 
