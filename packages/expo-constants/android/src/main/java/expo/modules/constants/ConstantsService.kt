@@ -34,7 +34,7 @@ open class ConstantsService(private val context: Context) : InternalModule, Cons
       "deviceName" to deviceName,
       "systemFonts" to systemFonts,
       "systemVersion" to systemVersion,
-      "manifest" to AppConfig.get(context),
+      "manifest" to AppConfig.getString(context),
       "platform" to mapOf<String, Map<String, Any>>("android" to emptyMap())
     )
   }

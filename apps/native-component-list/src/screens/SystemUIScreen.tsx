@@ -19,8 +19,11 @@ export default function SystemUIScreen() {
         <Section title="Navigation Bar Style">
           <NavigationBarStyleExample />
         </Section>
-        <Section title="Hiding Bars">
-          <HidingBarsExample />
+        <Section title="Hiding Status Bar">
+          <HidingStatusBarExample />
+        </Section>
+        <Section title="Hiding Navigation Bars">
+          <HidingNavigationBarExample />
         </Section>
       </Page>
     </ScrollView>
@@ -78,19 +81,30 @@ function NavigationBarStyleExample() {
   );
 }
 
-function HidingBarsExample() {
+function HidingStatusBarExample() {
   return (
     <>
       <Button
-        onPress={() => {
-          SystemUI.setSystemBarsConfig({ statusBarHidden: true, navigationBarHidden: true });
-        }}
+        onPress={() => SystemUI.setSystemBarsConfig({ statusBarHidden: true })}
         title="Set hidden"
       />
       <Button
-        onPress={() => {
-          SystemUI.setSystemBarsConfig({ statusBarHidden: false, navigationBarHidden: false });
-        }}
+        onPress={() => SystemUI.setSystemBarsConfig({ statusBarHidden: false })}
+        title="Set visible"
+      />
+    </>
+  );
+}
+
+function HidingNavigationBarExample() {
+  return (
+    <>
+      <Button
+        onPress={() => SystemUI.setSystemBarsConfig({ navigationBarHidden: true })}
+        title="Set hidden"
+      />
+      <Button
+        onPress={() => SystemUI.setSystemBarsConfig({ navigationBarHidden: false })}
         title="Set visible"
       />
     </>

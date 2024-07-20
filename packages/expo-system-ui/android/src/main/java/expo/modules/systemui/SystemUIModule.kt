@@ -81,33 +81,29 @@ class SystemUIModule : Module() {
       val insetsController = WindowInsetsControllerCompat(window, window.decorView)
 
       currentActivity.runOnUiThread {
-        if (config.statusBarStyle != null) {
-          insetsController.isAppearanceLightStatusBars =
-            config.statusBarStyle == SystemBarStyle.dark
-        }
-
-        if (config.navigationBarStyle != null) {
-          insetsController.isAppearanceLightNavigationBars =
-            config.navigationBarStyle == SystemBarStyle.dark
-        }
-
-        if (config.statusBarHidden != null || config.navigationBarHidden != null) {
-          insetsController.systemBarsBehavior =
-            WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
-
-          if (config.statusBarHidden != null) {
-            if (config.statusBarHidden) {
-              insetsController.hide(WindowInsetsCompat.Type.statusBars())
-            } else {
-              insetsController.show(WindowInsetsCompat.Type.statusBars())
-            }
+        with(config) {
+          statusBarStyle?.let {
+            insetsController.isAppearanceLightStatusBars = it == SystemBarStyle.dark
+          }
+          navigationBarStyle?.let {
+            insetsController.isAppearanceLightNavigationBars = it == SystemBarStyle.dark
           }
 
-          if (config.navigationBarHidden != null) {
-            if (config.navigationBarHidden) {
-              insetsController.hide(WindowInsetsCompat.Type.navigationBars())
-            } else {
-              insetsController.show(WindowInsetsCompat.Type.navigationBars())
+          if (statusBarHidden != null || navigationBarHidden != null) {
+            insetsController.systemBarsBehavior =
+              WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+
+            statusBarHidden?.let {
+              when (it) {
+                true -> insetsController.hide(WindowInsetsCompat.Type.statusBars())
+                else -> insetsController.show(WindowInsetsCompat.Type.statusBars())
+              }
+            }
+            navigationBarHidden?.let {
+              when (it) {
+                true -> insetsController.hide(WindowInsetsCompat.Type.navigationBars())
+                else -> insetsController.show(WindowInsetsCompat.Type.navigationBars())
+              }
             }
           }
         }
