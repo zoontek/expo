@@ -46,16 +46,15 @@ object SystemUI {
   }
 
   @JvmStatic
-  fun setEdgeToEdge(activity: Activity) {
-    val appConfigString = AppConfig.get(activity);
+  fun enableEdgeToEdge(activity: Activity) {
+    val appConfig = AppConfig.getJSON(activity);
 
-    if (appConfigString.isNullOrEmpty()) {
+    if (appConfig == null) {
       Log.w("ExpoSystemUI", "Unable to read the app config")
       return
     }
 
-    val manifest = JSONObject(appConfigString)
-    val experiments = manifest.optJSONObject("experiments")
+    val experiments = appConfig.optJSONObject("experiments")
     val edgeToEdge = experiments?.optBoolean("edgeToEdge")
 
     if (edgeToEdge != true) {
