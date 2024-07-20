@@ -9,6 +9,8 @@ import android.view.WindowManager
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsControllerCompat
+import expo.modules.core.AppConfig
+import org.json.JSONObject
 
 object SystemUI {
   private const val TAG = "SystemUI"
@@ -44,9 +46,25 @@ object SystemUI {
   }
 
   @JvmStatic
-  fun enableEdgeToEdge(activity: Activity) {
+  fun setEdgeToEdge(activity: Activity) {
+    val appConfigString = AppConfig.get(activity);
+
+    if (appConfigString.isNullOrEmpty()) {
+      Log.w("ExpoSystemUI", "Unable to read the app config")
+      return
+    }
+
+    val manifest = JSONObject(appConfigString)
+    val experiments = manifest.optJSONObject("experiments")
+    val edgeToEdge = experiments?.optBoolean("edgeToEdge")
+
+    if (edgeToEdge != true) {
+      return // Edge to edge mode is not enabled
+    }
+
     val window = activity.window
     val uiMode = activity.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
+
     val darkContentBarsStyle = uiMode != Configuration.UI_MODE_NIGHT_YES
     val insetsController = WindowInsetsControllerCompat(window, window.decorView)
 
