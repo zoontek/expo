@@ -41,7 +41,7 @@ export function setSystemBarsConfig(config) {
             StatusBar.setBarStyle(`${statusBarStyle === 'auto' ? autoBarStyle : statusBarStyle}-content`, true);
         }
         if (statusBarHidden != null) {
-            StatusBar.setHidden(statusBarHidden, 'slide'); // slide doesn't seem to work in this context
+            StatusBar.setHidden(statusBarHidden, 'slide'); // TODO: slide doesn't seem to work in this context
         }
     }
     else {

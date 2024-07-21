@@ -51,7 +51,7 @@ export function setSystemBarsConfig(config: SystemBarsConfig): void {
       );
     }
     if (statusBarHidden != null) {
-      StatusBar.setHidden(statusBarHidden, 'slide'); // slide doesn't seem to work in this context
+      StatusBar.setHidden(statusBarHidden, 'slide'); // TODO: slide doesn't seem to work in this context
     }
   } else {
     ExpoSystemUI.setSystemBarsConfig({
