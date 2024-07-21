@@ -1,5 +1,5 @@
 import { ColorValue } from 'react-native';
-import { SystemBarsConfig } from './ExpoSystemUI';
+import type { SystemBarsConfig } from './ExpoSystemUI';
 export type { SystemBarStyle } from './ExpoSystemUI';
 /**
  * Changes the root view background color.

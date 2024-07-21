@@ -1,6 +1,7 @@
 import { ColorValue, Platform, processColor, Appearance, StatusBar } from 'react-native';
 
-import ExpoSystemUI, { SystemBarsConfig } from './ExpoSystemUI';
+import ExpoSystemUI from './ExpoSystemUI';
+import type { SystemBarsConfig } from './ExpoSystemUI';
 
 export type { SystemBarStyle } from './ExpoSystemUI';
 

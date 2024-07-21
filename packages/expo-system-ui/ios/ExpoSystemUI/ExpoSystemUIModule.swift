@@ -4,8 +4,24 @@ import ExpoModulesCore
 
 public class ExpoSystemUIModule: Module {
   private static let colorKey = "ExpoSystemUI.backgroundColor"
+
+  private func isDarkModeEnabled() -> Bool {
+    let window = RCTKeyWindow()
+    var darkModeEnabled = false
+
+    RCTUnsafeExecuteOnMainQueueSync {
+      darkModeEnabled = window?.traitCollection.userInterfaceStyle == UIUserInterfaceStyle.dark;
+    }
+
+    return darkModeEnabled
+  }
+
   public func definition() -> ModuleDefinition {
     Name("ExpoSystemUI")
+
+    Constants([
+      "darkModeEnabled": self.isDarkModeEnabled()
+    ])
 
     OnCreate {
       let color = UserDefaults.standard.integer(forKey: Self.colorKey)
