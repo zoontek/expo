@@ -111,9 +111,9 @@ Pod::Spec.new do |s|
     :execution_position => :before_compile
   }
 
-  # Generate EXConstants.bundle without existing resources
-  # `get-app-config-ios.sh` will generate app.config in EXConstants.bundle
+  # Generate EXAppConfig.bundle without existing resources
+  # `get-app-config-ios.sh` will generate app.config in EXAppConfig.bundle
   s.resource_bundles = {
-    'EXConstants' => [],
+    'EXAppConfig' => [],
   }
 end

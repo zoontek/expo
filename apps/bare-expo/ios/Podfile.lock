@@ -2186,7 +2186,7 @@ EXTERNAL SOURCES:
     :path: "../../../packages/expo-barcode-scanner/ios"
   EXConstants:
     inhibit_warnings: false
-    :path: "../../../packages/expo-modules-core/ios"
+    :path: "../../../packages/expo-constants/ios"
   EXImageLoader:
     inhibit_warnings: false
     :path: "../../../packages/expo-image-loader/ios"
@@ -2528,7 +2528,7 @@ SPEC CHECKSUMS:
   EXApplication: c08200c34daca7af7fd76ac4b9d606077410e8ad
   EXAV: cb6e8dbcc40873d8a386af357e6c2eb55d6d739e
   EXBarCodeScanner: e2dd9b42c1b522a2adc9202b1dfbc64cb34456d1
-  EXConstants: 049d5fa3c2b0d4463dd0df5411877347548d0965
+  EXConstants: 1414918b66137638779179583af147ef1db159d3
   EXImageLoader: ab589d67d6c5f2c33572afea9917304418566334
   EXJSONUtils: fa6c5cd41afdcec8f0eca28a78b96abb86c28493
   EXManifests: c1fab4c3237675e7b0299ea8df0bcb14baca4f42
@@ -2570,7 +2570,7 @@ SPEC CHECKSUMS:
   ExpoMailComposer: e6da16de4682fba919051b2e680f804af00341f3
   ExpoMaps: 664ff9a93fe6b461976136327d7231ac78d87af7
   ExpoMediaLibrary: d94d530648c1051a09fa906e93b9b6eb225d70db
-  ExpoModulesCore: f3800ab0a43ba2acd7a29be09648e04b60ba2c7d
+  ExpoModulesCore: 41e9dd6a961a82d1841a84c2956acd3fff90b2bb
   ExpoModulesTestCore: 3d1007a5db579e867829b0f9cd4be07e29cf7c0c
   ExpoNetwork: 0d2c2504d56096fe8be3930d5c70cb3390dac5bf
   ExpoPrint: 0acb8b37c43634602ef20eec38dd108111736ef0

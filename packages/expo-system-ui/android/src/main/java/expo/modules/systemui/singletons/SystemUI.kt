@@ -67,8 +67,8 @@ object SystemUI {
     }
 
     val darkContentBarsStyle = when (appConfig.optString("userInterfaceStyle")) {
-      "dark" -> false
       "light" -> true
+      "dark" -> false
       else -> isDarkModeEnabled(activity).not()
     }
 
