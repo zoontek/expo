@@ -1,6 +1,7 @@
 declare const _default: {
+    darkModeEnabled: boolean;
     getBackgroundColorAsync(): any;
-    setBackgroundColorAsync(color: string | null): void;
+    setBackgroundColorAsync(color: import("react-native").ColorValue | null): Promise<void>;
     setSystemBarsConfig(): void;
 };
 export default _default;

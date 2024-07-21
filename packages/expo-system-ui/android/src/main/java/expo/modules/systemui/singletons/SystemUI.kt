@@ -1,6 +1,7 @@
 package expo.modules.systemui.singletons
 
 import android.app.Activity
+import android.content.Context
 import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Build
@@ -45,6 +46,11 @@ object SystemUI {
   }
 
   @JvmStatic
+  fun isDarkModeEnabled(context: Context): Boolean =
+    context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK ==
+      Configuration.UI_MODE_NIGHT_YES
+
+  @JvmStatic
   fun enableEdgeToEdge(activity: Activity) {
     val appConfig = AppConfig.getJSON(activity);
 
@@ -61,12 +67,9 @@ object SystemUI {
     }
 
     val darkContentBarsStyle = when (appConfig.optString("userInterfaceStyle")) {
-      "light" -> true
       "dark" -> false
-      else -> {
-        val uiMode = activity.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
-        uiMode != Configuration.UI_MODE_NIGHT_YES
-      }
+      "light" -> true
+      else -> isDarkModeEnabled(activity).not()
     }
 
     val window = activity.window

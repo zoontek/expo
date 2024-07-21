@@ -15,6 +15,7 @@ import expo.modules.kotlin.modules.ModuleDefinition
 import expo.modules.kotlin.records.Field
 import expo.modules.kotlin.records.Record
 import expo.modules.kotlin.types.Enumerable
+import expo.modules.systemui.singletons.SystemUI
 
 const val PREFERENCE_KEY = "expoRootBackgroundColor"
 
@@ -55,6 +56,12 @@ class SystemUIModule : Module() {
 
   override fun definition() = ModuleDefinition {
     Name("ExpoSystemUI")
+
+    Constants {
+      mapOf(
+        "darkModeEnabled" to SystemUI.isDarkModeEnabled(context)
+      )
+    }
 
     AsyncFunction("setBackgroundColorAsync") { color: Int? ->
       color?.let {

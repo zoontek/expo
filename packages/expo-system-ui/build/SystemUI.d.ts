@@ -1,4 +1,6 @@
 import { ColorValue } from 'react-native';
+import { SystemBarsConfig } from './ExpoSystemUI';
+export type { SystemBarStyle } from './ExpoSystemUI';
 /**
  * Changes the root view background color.
  * Call this function in the root file outside of you component.
@@ -20,12 +22,5 @@ export declare function setBackgroundColorAsync(color: ColorValue | null): Promi
  * @returns Current root view background color in hex format. Returns `null` if the background color is not set.
  */
 export declare function getBackgroundColorAsync(): Promise<ColorValue | null>;
-export type SystemBarStyle = 'auto' | 'light' | 'dark';
-export type SystemBarsConfig = {
-    statusBarStyle?: SystemBarStyle;
-    navigationBarStyle?: SystemBarStyle;
-    statusBarHidden?: boolean;
-    navigationBarHidden?: boolean;
-};
 export declare function setSystemBarsConfig(config: SystemBarsConfig): void;
 //# sourceMappingURL=SystemUI.d.ts.map

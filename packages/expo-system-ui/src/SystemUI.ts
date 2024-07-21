@@ -1,6 +1,8 @@
 import { ColorValue, Platform, processColor, Appearance } from 'react-native';
 
-import ExpoSystemUI from './ExpoSystemUI';
+import ExpoSystemUI, { SystemBarsConfig } from './ExpoSystemUI';
+
+export type { SystemBarStyle } from './ExpoSystemUI';
 
 /**
  * Changes the root view background color.
@@ -17,7 +19,7 @@ export async function setBackgroundColorAsync(color: ColorValue | null): Promise
     return await ExpoSystemUI.setBackgroundColorAsync(null);
   } else {
     const colorNumber = Platform.OS === 'web' ? color : processColor(color);
-    return await ExpoSystemUI.setBackgroundColorAsync(colorNumber);
+    return await ExpoSystemUI.setBackgroundColorAsync(colorNumber as ColorValue | null);
   }
 }
 
@@ -34,16 +36,7 @@ export async function getBackgroundColorAsync(): Promise<ColorValue | null> {
   return await ExpoSystemUI.getBackgroundColorAsync();
 }
 
-export type SystemBarStyle = 'auto' | 'light' | 'dark';
-
-export type SystemBarsConfig = {
-  statusBarStyle?: SystemBarStyle;
-  navigationBarStyle?: SystemBarStyle;
-  statusBarHidden?: boolean;
-  navigationBarHidden?: boolean;
-};
-
-export function setSystemBarsConfig(config: SystemBarsConfig) {
+export function setSystemBarsConfig(config: SystemBarsConfig): void {
   const { statusBarStyle, navigationBarStyle } = config;
   const colorScheme = Appearance.getColorScheme() ?? 'light';
   const autoBarStyle = colorScheme === 'light' ? 'dark' : 'light';

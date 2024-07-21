@@ -1,4 +1,11 @@
+import type { ExpoSystemUIModule } from './ExpoSystemUI';
+
 export default {
+  darkModeEnabled:
+    typeof window !== 'undefined' &&
+    'matchMedia' in window &&
+    window.matchMedia('(prefers-color-scheme: dark)').matches,
+
   getBackgroundColorAsync() {
     if (typeof window === 'undefined') {
       return null;
@@ -6,10 +13,12 @@ export default {
     const normalizeColor = require('react-native-web/dist/cjs/modules/normalizeColor');
     return normalizeColor(document.body.style.backgroundColor);
   },
-  setBackgroundColorAsync(color: string | null) {
+
+  async setBackgroundColorAsync(color) {
     if (typeof window !== 'undefined') {
-      document.body.style.backgroundColor = color ?? 'white';
+      document.body.style.backgroundColor = (typeof color === 'string' ? color : null) ?? 'white';
     }
   },
-  setSystemBarsConfig() {},
-};
+
+  setSystemBarsConfig() {}, // noop on web
+} satisfies ExpoSystemUIModule;
