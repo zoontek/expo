@@ -14,6 +14,6 @@ export default {
             document.body.style.backgroundColor = (typeof color === 'string' ? color : null) ?? 'white';
         }
     },
-    setSystemBarsConfig() { }, // noop on web
+    setSystemBarsConfig() { }, // noop
 };
 //# sourceMappingURL=ExpoSystemUI.web.js.map

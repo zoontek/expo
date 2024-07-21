@@ -20,5 +20,5 @@ export default {
     }
   },
 
-  setSystemBarsConfig() {}, // noop on web
+  setSystemBarsConfig() {}, // noop
 } satisfies ExpoSystemUIModule;

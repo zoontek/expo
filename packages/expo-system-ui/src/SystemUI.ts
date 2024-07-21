@@ -1,4 +1,4 @@
-import { ColorValue, Platform, processColor, Appearance } from 'react-native';
+import { ColorValue, Platform, processColor, Appearance, StatusBar } from 'react-native';
 
 import ExpoSystemUI, { SystemBarsConfig } from './ExpoSystemUI';
 
@@ -37,14 +37,27 @@ export async function getBackgroundColorAsync(): Promise<ColorValue | null> {
 }
 
 export function setSystemBarsConfig(config: SystemBarsConfig): void {
-  const { statusBarStyle, navigationBarStyle } = config;
+  const { statusBarStyle, navigationBarStyle, statusBarHidden, navigationBarHidden } = config;
   const colorScheme = Appearance.getColorScheme() ?? 'light';
   const autoBarStyle = colorScheme === 'light' ? 'dark' : 'light';
 
-  ExpoSystemUI.setSystemBarsConfig({
-    statusBarStyle: statusBarStyle === 'auto' ? autoBarStyle : statusBarStyle,
-    navigationBarStyle: navigationBarStyle === 'auto' ? autoBarStyle : navigationBarStyle,
-    statusBarHidden: config.statusBarHidden,
-    navigationBarHidden: config.navigationBarHidden,
-  });
+  if (Platform.OS === 'ios') {
+    // Emulate android behavior with StatusBar from react-native
+    if (statusBarStyle != null) {
+      StatusBar.setBarStyle(
+        `${statusBarStyle === 'auto' ? autoBarStyle : statusBarStyle}-content` as const,
+        true
+      );
+    }
+    if (statusBarHidden != null) {
+      StatusBar.setHidden(statusBarHidden, 'slide'); // slide doesn't seem to work in this context
+    }
+  } else {
+    ExpoSystemUI.setSystemBarsConfig({
+      statusBarStyle: statusBarStyle === 'auto' ? autoBarStyle : statusBarStyle,
+      navigationBarStyle: navigationBarStyle === 'auto' ? autoBarStyle : navigationBarStyle,
+      statusBarHidden,
+      navigationBarHidden,
+    });
+  }
 }
