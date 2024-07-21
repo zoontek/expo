@@ -111,7 +111,7 @@ EX_REGISTER_MODULE();
 + (NSDictionary *)appConfig
 {
   NSBundle *frameworkBundle = [NSBundle bundleForClass:[EXConstantsService class]];
-  NSURL *bundleUrl = [frameworkBundle.resourceURL URLByAppendingPathComponent:@"EXConstants.bundle"];
+  NSURL *bundleUrl = [frameworkBundle.resourceURL URLByAppendingPathComponent:@"EXAppConfig.bundle"];
   NSBundle *bundle = [NSBundle bundleWithURL:bundleUrl];
   NSString *path = [bundle pathForResource:@"app" ofType:@"config"];
   if (path) {
