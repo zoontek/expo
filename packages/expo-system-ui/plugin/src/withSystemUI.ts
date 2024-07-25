@@ -14,18 +14,16 @@ const withSystemUI: ConfigPlugin = (config) => {
   const { experiments = {} } = config;
   const { edgeToEdge = false } = experiments;
 
-  const plugins = [
+  return withPlugins(config, [
     withAndroidRootViewBackgroundColor,
     withIosRootViewBackgroundColor,
     withAndroidUserInterfaceStyle,
     withIosUserInterfaceStyle,
-  ];
 
-  if (edgeToEdge) {
-    plugins.push(withAndroidEdgeToEdgeTheme, withAndroidGradleProperties, withIosStatusBarStyle);
-  }
-
-  return withPlugins(config, plugins);
+    ...(edgeToEdge
+      ? [withAndroidEdgeToEdgeTheme, withAndroidGradleProperties, withIosStatusBarStyle]
+      : []),
+  ]);
 };
 
 export default createRunOncePlugin(withSystemUI, pkg.name, pkg.version);
