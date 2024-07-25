@@ -1,18 +1,29 @@
 import { ConfigPlugin, withGradleProperties } from 'expo/config-plugins';
 
 export const withAndroidGradleProperties: ConfigPlugin = (config) => {
-  const key = 'EdgeToEdge_enable';
+  const comment = {
+    type: 'comment',
+    value: 'Enable edge to edge',
+  } as const;
+
+  const property = {
+    type: 'property',
+    key: 'expo.enableEdgeToEdge',
+    value: 'true',
+  } as const;
 
   return withGradleProperties(config, async (config) => {
-    const modResults = config.modResults.filter(
-      (item) => item.type !== 'property' || item.key !== key
+    const { modResults } = config;
+
+    const currentIndex = modResults.findIndex(
+      (item) => item.type === 'property' && item.key === property.key
     );
 
-    modResults.push({
-      type: 'property',
-      key,
-      value: 'true',
-    });
+    if (currentIndex > -1) {
+      modResults[currentIndex] = property;
+    } else {
+      modResults.push(comment, property);
+    }
 
     return {
       ...config,
