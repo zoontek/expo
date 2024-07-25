@@ -9,7 +9,7 @@ const withAndroidGradleProperties = (config) => {
     };
     const property = {
         type: 'property',
-        key: 'expo.enableEdgeToEdge',
+        key: 'edgeToEdgeEnabled',
         value: 'true',
     };
     return (0, config_plugins_1.withGradleProperties)(config, async (config) => {

@@ -8,7 +8,7 @@ export const withAndroidGradleProperties: ConfigPlugin = (config) => {
 
   const property = {
     type: 'property',
-    key: 'expo.enableEdgeToEdge',
+    key: 'edgeToEdgeEnabled',
     value: 'true',
   } as const;
 
