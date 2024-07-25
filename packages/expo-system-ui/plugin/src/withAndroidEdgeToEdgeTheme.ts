@@ -4,9 +4,8 @@ export const withAndroidEdgeToEdgeTheme: ConfigPlugin = (config) => {
   return withAndroidStyles(config, async (config) => {
     const { modResults, userInterfaceStyle = 'automatic' } = config;
     const { resources } = modResults;
-    const { style = [] } = resources;
 
-    const updatedStyle = style.map((style): typeof style => {
+    const style = resources.style?.map((style): typeof style => {
       if (style.$.name !== 'AppTheme') {
         return style;
       }
@@ -34,7 +33,7 @@ export const withAndroidEdgeToEdgeTheme: ConfigPlugin = (config) => {
         ...modResults,
         resources: {
           ...resources,
-          style: updatedStyle,
+          style,
         },
       },
     };

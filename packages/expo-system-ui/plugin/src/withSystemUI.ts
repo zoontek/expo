@@ -1,6 +1,7 @@
 import { ConfigPlugin, createRunOncePlugin, withPlugins } from 'expo/config-plugins';
 
 import { withAndroidEdgeToEdgeTheme } from './withAndroidEdgeToEdgeTheme';
+import { withAndroidGradleProperties } from './withAndroidGradleProperties';
 import { withAndroidRootViewBackgroundColor } from './withAndroidRootViewBackgroundColor';
 import { withAndroidUserInterfaceStyle } from './withAndroidUserInterfaceStyle';
 import { withIosRootViewBackgroundColor } from './withIosRootViewBackgroundColor';
@@ -20,7 +21,7 @@ const withSystemUI: ConfigPlugin = (config) => {
   ];
 
   if (edgeToEdge) {
-    plugins.push(withAndroidEdgeToEdgeTheme);
+    plugins.push(withAndroidEdgeToEdgeTheme, withAndroidGradleProperties);
   }
 
   return withPlugins(config, plugins);

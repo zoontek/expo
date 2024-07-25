@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const config_plugins_1 = require("expo/config-plugins");
 const withAndroidEdgeToEdgeTheme_1 = require("./withAndroidEdgeToEdgeTheme");
+const withAndroidGradleProperties_1 = require("./withAndroidGradleProperties");
 const withAndroidRootViewBackgroundColor_1 = require("./withAndroidRootViewBackgroundColor");
 const withAndroidUserInterfaceStyle_1 = require("./withAndroidUserInterfaceStyle");
 const withIosRootViewBackgroundColor_1 = require("./withIosRootViewBackgroundColor");
@@ -17,7 +18,7 @@ const withSystemUI = (config) => {
         withIosUserInterfaceStyle_1.withIosUserInterfaceStyle,
     ];
     if (edgeToEdge) {
-        plugins.push(withAndroidEdgeToEdgeTheme_1.withAndroidEdgeToEdgeTheme);
+        plugins.push(withAndroidEdgeToEdgeTheme_1.withAndroidEdgeToEdgeTheme, withAndroidGradleProperties_1.withAndroidGradleProperties);
     }
     return (0, config_plugins_1.withPlugins)(config, plugins);
 };
