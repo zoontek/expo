@@ -1,7 +1,18 @@
 import { Component, ReactNode } from 'react';
-import { Appearance, Platform, StatusBar } from 'react-native';
+import {
+  Appearance,
+  ColorSchemeName,
+  NativeEventSubscription,
+  Platform,
+  StatusBar,
+} from 'react-native';
 
-import ExpoSystemUI from './ExpoSystemUI';
+import ExpoSystemUI, { SystemBarsConfig } from './ExpoSystemUI';
+
+// @ts-expect-error
+const customGlobal = global as {
+  _appearanceSubscription?: NativeEventSubscription;
+};
 
 export type SystemBarStyle = 'auto' | 'light' | 'dark';
 
@@ -150,6 +161,33 @@ export class SystemBars extends Component<SystemBarsProps> {
     }
   }
 
+  private static _applyStackEntry(entry: SystemBarsStackEntry, colorScheme: ColorSchemeName) {
+    const { statusBarHidden, navigationBarHidden } = entry;
+    const autoBarStyle = colorScheme === 'light' ? 'dark' : 'light';
+
+    const statusBarStyle: SystemBarsConfig['statusBarStyle'] =
+      entry.statusBarStyle === 'auto' ? autoBarStyle : entry.statusBarStyle;
+    const navigationBarStyle: SystemBarsConfig['navigationBarStyle'] =
+      entry.navigationBarStyle === 'auto' ? autoBarStyle : entry.navigationBarStyle;
+
+    if (Platform.OS === 'ios') {
+      ExpoSystemUI.setSystemBarsConfigAsync({
+        statusBarStyle,
+        navigationBarStyle,
+        statusBarHidden,
+        navigationBarHidden,
+      });
+    } else {
+      // Emulate android behavior with react-native StatusBar
+      if (statusBarStyle != null) {
+        StatusBar.setBarStyle(`${statusBarStyle}-content`, true);
+      }
+      if (statusBarHidden != null) {
+        StatusBar.setHidden(statusBarHidden, 'fade'); // 'slide' doesn't work in this context
+      }
+    }
+  }
+
   /**
    * Updates the native system bars with the props from the stack.
    */
@@ -172,33 +210,12 @@ export class SystemBars extends Component<SystemBarsProps> {
           oldProps?.navigationBarHidden !== mergedProps.navigationBarHidden ||
           oldProps?.navigationBarStyle !== mergedProps.navigationBarStyle
         ) {
-          const { statusBarHidden, statusBarStyle, navigationBarHidden, navigationBarStyle } =
-            mergedProps;
-
-          // TODO: Listen and apply changes when Appearance is auto and change
-          // Don't listen on each fast refresh (use a static field)
-          const colorScheme = Appearance.getColorScheme() ?? 'light';
-          const autoBarStyle = colorScheme === 'light' ? 'dark' : 'light';
-
-          if (Platform.OS === 'ios') {
-            ExpoSystemUI.setSystemBarsConfigAsync({
-              statusBarStyle: statusBarStyle === 'auto' ? autoBarStyle : statusBarStyle,
-              navigationBarStyle: navigationBarStyle === 'auto' ? autoBarStyle : navigationBarStyle,
-              statusBarHidden,
-              navigationBarHidden,
-            });
-          } else {
-            // Emulate android behavior with react-native StatusBar
-            if (statusBarStyle != null) {
-              const barStyle =
-                `${statusBarStyle === 'auto' ? autoBarStyle : statusBarStyle}-content` as const;
-
-              StatusBar.setBarStyle(barStyle, true);
-            }
-            if (statusBarHidden != null) {
-              StatusBar.setHidden(statusBarHidden, 'fade'); // 'slide' doesn't work in this context
-            }
-          }
+          SystemBars._applyStackEntry(
+            mergedProps,
+            mergedProps.statusBarStyle === 'auto' || mergedProps.navigationBarStyle === 'auto'
+              ? Appearance.getColorScheme()
+              : null
+          );
         }
 
         // Update the current props values.
@@ -213,4 +230,25 @@ export class SystemBars extends Component<SystemBarsProps> {
   override render(): ReactNode {
     return null;
   }
+
+  private static _onAppearanceChange({ colorScheme }: Appearance.AppearancePreferences) {
+    const currentValues = SystemBars._currentValues;
+
+    if (currentValues?.statusBarStyle === 'auto' || currentValues?.navigationBarStyle === 'auto') {
+      SystemBars._applyStackEntry(currentValues, colorScheme);
+    }
+  }
+
+  private static _appearanceSubscription = (() => {
+    const subscription =
+      customGlobal._appearanceSubscription ??
+      Appearance.addChangeListener(SystemBars._onAppearanceChange);
+
+    // Workaround to subscribe once with fast-refresh
+    if (__DEV__) {
+      customGlobal._appearanceSubscription = subscription;
+    }
+
+    return subscription;
+  })();
 }

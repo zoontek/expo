@@ -12,8 +12,9 @@ declare global {
   const __EDGE_TO_EDGE__: boolean;
 }
 
+const edgeToEdgeEnabled: boolean = Constants.expoConfig?.experiments?.edgeToEdge ?? false;
 // @ts-expect-error
-global.__EDGE_TO_EDGE__ = Constants.expoConfig?.experiments?.edgeToEdge ?? false;
+global.__EDGE_TO_EDGE__ = edgeToEdgeEnabled;
 
 /**
  * Changes the root view background color.

@@ -44,10 +44,13 @@ export declare class SystemBars extends Component<SystemBarsProps> {
     componentDidMount(): void;
     componentDidUpdate(): void;
     componentWillUnmount(): void;
+    private static _applyStackEntry;
     /**
      * Updates the native system bars with the props from the stack.
      */
     private static _updatePropsStack;
     render(): ReactNode;
+    private static _onAppearanceChange;
+    private static _appearanceSubscription;
 }
 //# sourceMappingURL=SystemBars.d.ts.map

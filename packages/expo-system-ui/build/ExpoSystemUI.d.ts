@@ -1,5 +1,5 @@
 import { ColorValue } from 'react-native';
-type SystemBarsConfig = {
+export type SystemBarsConfig = {
     statusBarHidden: boolean | undefined;
     statusBarStyle: 'light' | 'dark' | undefined;
     navigationBarHidden: boolean | undefined;
