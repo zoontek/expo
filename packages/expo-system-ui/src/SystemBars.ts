@@ -170,7 +170,7 @@ export class SystemBars extends Component<SystemBarsProps> {
     const navigationBarStyle: SystemBarsConfig['navigationBarStyle'] =
       entry.navigationBarStyle === 'auto' ? autoBarStyle : entry.navigationBarStyle;
 
-    if (Platform.OS === 'ios') {
+    if (Platform.OS === 'android') {
       ExpoSystemUI.setSystemBarsConfigAsync({
         statusBarStyle,
         navigationBarStyle,
