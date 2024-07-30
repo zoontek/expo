@@ -17,13 +17,13 @@ const customGlobal = global as {
 export type SystemBarStyle = 'auto' | 'light' | 'dark';
 
 export type SystemBarsProps = {
-  hidden:
+  hidden?:
     | boolean
     | {
         statusBar?: boolean;
         navigationBar?: boolean;
       };
-  style:
+  style?:
     | SystemBarStyle
     | {
         statusBar?: SystemBarStyle;

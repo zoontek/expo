@@ -1,11 +1,11 @@
 import { Component, ReactNode } from 'react';
 export type SystemBarStyle = 'auto' | 'light' | 'dark';
 export type SystemBarsProps = {
-    hidden: boolean | {
+    hidden?: boolean | {
         statusBar?: boolean;
         navigationBar?: boolean;
     };
-    style: SystemBarStyle | {
+    style?: SystemBarStyle | {
         statusBar?: SystemBarStyle;
         navigationBar?: SystemBarStyle;
     };
