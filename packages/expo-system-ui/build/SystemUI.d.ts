@@ -1,4 +1,12 @@
 import { ColorValue } from 'react-native';
+declare global {
+    /**
+     * This variable is set to true when edge to edge mode is enabled
+     * @example
+     * if (__EDGE_TO_EDGE__) console.log('Edge to edge mode is enabled')
+     */
+    const __EDGE_TO_EDGE__: boolean;
+}
 /**
  * Changes the root view background color.
  * Call this function in the root file outside of you component.
@@ -20,4 +28,5 @@ export declare function setBackgroundColorAsync(color: ColorValue | null): Promi
  * @returns Current root view background color in hex format. Returns `null` if the background color is not set.
  */
 export declare function getBackgroundColorAsync(): Promise<ColorValue | null>;
+export { SystemBars, SystemBarsProps, SystemBarsStackEntry, SystemBarStyle } from './SystemBars';
 //# sourceMappingURL=SystemUI.d.ts.map

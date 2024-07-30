@@ -1,5 +1,8 @@
+import Constants from 'expo-constants';
 import { Platform, processColor } from 'react-native';
 import ExpoSystemUI from './ExpoSystemUI';
+// @ts-expect-error
+global.__EDGE_TO_EDGE__ = Constants.expoConfig?.experiments?.edgeToEdge ?? false;
 /**
  * Changes the root view background color.
  * Call this function in the root file outside of you component.
@@ -31,4 +34,5 @@ export async function setBackgroundColorAsync(color) {
 export async function getBackgroundColorAsync() {
     return await ExpoSystemUI.getBackgroundColorAsync();
 }
+export { SystemBars } from './SystemBars';
 //# sourceMappingURL=SystemUI.js.map

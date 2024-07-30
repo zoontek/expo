@@ -12,14 +12,15 @@ const pkg = require('expo-system-ui/package.json');
 const withSystemUI = (config) => {
     const { experiments = {} } = config;
     const { edgeToEdge = false } = experiments;
-    return (0, config_plugins_1.withPlugins)(config, [
+    const plugins = [
         withAndroidRootViewBackgroundColor_1.withAndroidRootViewBackgroundColor,
         withIosRootViewBackgroundColor_1.withIosRootViewBackgroundColor,
         withAndroidUserInterfaceStyle_1.withAndroidUserInterfaceStyle,
         withIosUserInterfaceStyle_1.withIosUserInterfaceStyle,
-        ...(edgeToEdge
-            ? [withAndroidEdgeToEdgeTheme_1.withAndroidEdgeToEdgeTheme, withAndroidGradleProperties_1.withAndroidGradleProperties, withIosStatusBarStyle_1.withIosStatusBarStyle]
-            : []),
-    ]);
+    ];
+    if (edgeToEdge) {
+        plugins.push(withAndroidEdgeToEdgeTheme_1.withAndroidEdgeToEdgeTheme, withAndroidGradleProperties_1.withAndroidGradleProperties, withIosStatusBarStyle_1.withIosStatusBarStyle);
+    }
+    return (0, config_plugins_1.withPlugins)(config, plugins);
 };
 exports.default = (0, config_plugins_1.createRunOncePlugin)(withSystemUI, pkg.name, pkg.version);
