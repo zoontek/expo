@@ -1,5 +1,9 @@
+import Constants from 'expo-constants';
 import { Platform, processColor } from 'react-native';
 import ExpoSystemUI from './ExpoSystemUI';
+const edgeToEdgeEnabled = Constants.expoConfig?.experiments?.edgeToEdge ?? false;
+// @ts-ignore
+global.__EDGE_TO_EDGE__ = edgeToEdgeEnabled;
 /**
  * Changes the root view background color.
  * Call this function in the root file outside of you component.
