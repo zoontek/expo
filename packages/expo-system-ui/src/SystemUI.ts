@@ -1,6 +1,20 @@
+import Constants from 'expo-constants';
 import { ColorValue, Platform, processColor } from 'react-native';
 
 import ExpoSystemUI from './ExpoSystemUI';
+
+declare global {
+  /**
+   * This variable is set to true when edge to edge mode is enabled
+   * @example
+   * if (__EDGE_TO_EDGE__) console.log('Edge to edge mode is enabled')
+   */
+  const __EDGE_TO_EDGE__: boolean;
+}
+
+const edgeToEdgeEnabled: boolean = Constants.expoConfig?.experiments?.edgeToEdge ?? false;
+// @ts-expect-error
+global.__EDGE_TO_EDGE__ = edgeToEdgeEnabled;
 
 /**
  * Changes the root view background color.
@@ -17,7 +31,7 @@ export async function setBackgroundColorAsync(color: ColorValue | null): Promise
     return await ExpoSystemUI.setBackgroundColorAsync(null);
   } else {
     const colorNumber = Platform.OS === 'web' ? color : processColor(color);
-    return await ExpoSystemUI.setBackgroundColorAsync(colorNumber);
+    return await ExpoSystemUI.setBackgroundColorAsync(colorNumber as ColorValue | null);
   }
 }
 
@@ -33,3 +47,5 @@ export async function setBackgroundColorAsync(color: ColorValue | null): Promise
 export async function getBackgroundColorAsync(): Promise<ColorValue | null> {
   return await ExpoSystemUI.getBackgroundColorAsync();
 }
+
+export { SystemBars, SystemBarsProps, SystemBarsStackEntry, SystemBarStyle } from './SystemBars';
