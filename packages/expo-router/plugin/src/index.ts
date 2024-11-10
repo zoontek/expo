@@ -38,8 +38,7 @@ const withRouter: ConfigPlugin<
     /** Generate partial typed routes */
     partialTypedGroups?: boolean;
   } | void
-> = (config, _props) => {
-  const props = _props || {};
+> = (config, props = {}) => {
   validate(schema, props);
 
   withExpoHeadIos(config);

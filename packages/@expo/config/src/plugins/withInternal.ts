@@ -21,7 +21,7 @@ export const withInternal: ConfigPlugin<
   config._internal = {
     isDebug: EXPO_DEBUG,
     ...config._internal,
-    ...internals,
+    ...(internals ?? {}),
   };
 
   return config;

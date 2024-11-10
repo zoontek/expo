@@ -140,8 +140,10 @@ function isReactNativeMapsAutolinked(config: Pick<ExpoConfig, '_internal'>): boo
   // );
 }
 
-const withMapsCocoaPods: ConfigPlugin<{ useGoogleMaps: boolean }> = (config, { useGoogleMaps }) => {
+const withMapsCocoaPods: ConfigPlugin<{ useGoogleMaps: boolean }> = (config, props) => {
   return withPodfile(config, async (config) => {
+    const useGoogleMaps = props?.useGoogleMaps ?? false;
+
     // Only add the block if react-native-maps is installed in the project (best effort).
     // Generally prebuild runs after a yarn install so this should always work as expected.
     const googleMapsPath = isReactNativeMapsInstalled(config.modRequest.projectRoot);
@@ -175,8 +177,10 @@ const withMapsCocoaPods: ConfigPlugin<{ useGoogleMaps: boolean }> = (config, { u
   });
 };
 
-const withGoogleMapsAppDelegate: ConfigPlugin<{ apiKey: string | null }> = (config, { apiKey }) => {
+const withGoogleMapsAppDelegate: ConfigPlugin<{ apiKey: string | null }> = (config, props) => {
   return withAppDelegate(config, (config) => {
+    const apiKey = props?.apiKey ?? null;
+
     if (['objc', 'objcpp'].includes(config.modResults.language)) {
       if (
         apiKey &&

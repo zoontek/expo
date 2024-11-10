@@ -67,7 +67,7 @@ export interface ExportedConfigWithProps<Data = any> extends ExportedConfig {
  * A helper type to get the properties of a plugin.
  */
 export type PluginParameters<T extends ConfigPlugin<any>> = T extends (config: any, props: infer P) => any ? P : never;
-export type ConfigPlugin<Props = void> = (config: ExpoConfig, props: Props) => ExpoConfig;
+export type ConfigPlugin<Props = void> = (config: ExpoConfig, props?: Props) => ExpoConfig;
 export type StaticPlugin<T = any> = [string | ConfigPlugin<T>, T];
 export type Mod<Props = any> = ((config: ExportedConfigWithProps<Props>) => OptionalPromise<ExportedConfigWithProps<Props>>) & {
     /**

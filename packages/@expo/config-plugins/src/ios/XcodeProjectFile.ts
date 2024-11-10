@@ -18,17 +18,22 @@ export const withBuildSourceFile: ConfigPlugin<{
   filePath: string;
   contents: string;
   overwrite?: boolean;
-}> = (config, { filePath, contents, overwrite }) => {
+}> = (config, props) => {
   return withXcodeProject(config, (config) => {
     const projectName = getProjectName(config.modRequest.projectRoot);
 
-    config.modResults = createBuildSourceFile({
-      project: config.modResults,
-      nativeProjectRoot: config.modRequest.platformProjectRoot,
-      fileContents: contents,
-      filePath: path.join(projectName, filePath),
-      overwrite,
-    });
+    if (props) {
+      const { filePath, contents, overwrite } = props;
+
+      config.modResults = createBuildSourceFile({
+        project: config.modResults,
+        nativeProjectRoot: config.modRequest.platformProjectRoot,
+        fileContents: contents,
+        filePath: path.join(projectName, filePath),
+        overwrite,
+      });
+    }
+
     return config;
   });
 };

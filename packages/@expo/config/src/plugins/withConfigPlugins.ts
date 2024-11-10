@@ -8,7 +8,7 @@ import { serializeAfterStaticPlugins } from '../Serialize';
  * @param config
  * @param projectRoot
  */
-export const withConfigPlugins: ConfigPlugin<boolean> = (config, skipPlugins) => {
+export const withConfigPlugins: ConfigPlugin<boolean> = (config, skipPlugins = false) => {
   // @ts-ignore: plugins not on config type yet -- TODO
   if (!Array.isArray(config.plugins) || !config.plugins?.length) {
     return config;
