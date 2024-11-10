@@ -18,7 +18,7 @@ import { withXcodeProject } from '../plugins/ios-plugins';
 
 export const withBundleIdentifier: ConfigPlugin<{ bundleIdentifier?: string }> = (
   config,
-  { bundleIdentifier }
+  { bundleIdentifier } = {}
 ) => {
   return withXcodeProject(config, async (config) => {
     const bundleId = bundleIdentifier ?? config.ios?.bundleIdentifier;

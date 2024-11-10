@@ -12,7 +12,13 @@ export const withRunOnce: ConfigPlugin<{
   plugin: ConfigPlugin<void>;
   name: PluginHistoryItem['name'];
   version?: PluginHistoryItem['version'];
-}> = (config, { plugin, name, version }) => {
+}> = (config, props) => {
+  if (!props) {
+    return config;
+  }
+
+  const { plugin, name, version } = props;
+
   // Detect if a plugin has already been run on this config.
   if (getHistoryItem(config, name)) {
     return config;

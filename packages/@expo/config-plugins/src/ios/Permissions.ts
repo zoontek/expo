@@ -40,7 +40,9 @@ export function createPermissionsPlugin<
     permissions
   ) =>
     withInfoPlist(config, async (config) => {
-      config.modResults = applyPermissions(defaults, permissions, config.modResults);
+      if (permissions) {
+        config.modResults = applyPermissions(defaults, permissions, config.modResults);
+      }
       return config;
     });
   if (name) {

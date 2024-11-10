@@ -88,7 +88,7 @@ export type PluginParameters<T extends ConfigPlugin<any>> = T extends (
   ? P
   : never;
 
-export type ConfigPlugin<Props = void> = (config: ExpoConfig, props: Props) => ExpoConfig;
+export type ConfigPlugin<Props = void> = (config: ExpoConfig, props?: Props) => ExpoConfig;
 
 export type StaticPlugin<T = any> = [string | ConfigPlugin<T>, T];
 
